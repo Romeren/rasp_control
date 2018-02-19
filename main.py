@@ -2,21 +2,10 @@ import requests
 import json
 import inspect
 
-import rasp_cluster.services.service_discovery as d
-import rasp_cluster.services.service_configurator as c
-import rasp_cluster.services.service_connector as con
-import rasp_cluster.services.cluster_publisher as pub
-import rasp_cluster.services.cluster_subscriber as sub
-import rasp_cluster.services.service_registry_share as share
+services = []
+import rasp_control.services.login as login
 
-services = [
-    sub,
-    pub,
-    share,
-    c,
-    con,
-    d
-]
+services.append(login)
 
 def deploy(ip, port, auth, module):
     config  = module.config
@@ -32,5 +21,5 @@ file = open('rasp_cluster/auth.key', 'r')
 auth = file.read()
 file.close()
 for service in services:
-    deploy('192.168.2.1', 8080, auth, service)
+    deploy('192.168.2.15', 8080, auth, service)
 
